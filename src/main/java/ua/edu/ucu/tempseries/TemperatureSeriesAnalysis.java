@@ -98,7 +98,7 @@ public class TemperatureSeriesAnalysis {
         }
         double closest_to_value = 100000;
         for (int i = 0; i < this.tempLen; i++) {
-            if (Math.abs(this.temperatureSeries[i] - tempValue) < Math.abs(closest_to_value - tempValue)) {
+            if (Math.abs(this.temperatureSeries[i] - tempValue) < Math.abs(closest_to_value - tempValue) || this.temperatureSeries[i] - tempValue == Math.abs(closest_to_value - tempValue)) {
                 closest_to_value = this.temperatureSeries[i];
             }
         }
@@ -162,4 +162,3 @@ public class TemperatureSeriesAnalysis {
         return this.tempLen;
     }
 }
-
