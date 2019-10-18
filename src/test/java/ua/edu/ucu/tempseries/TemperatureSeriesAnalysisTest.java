@@ -219,9 +219,9 @@ public class TemperatureSeriesAnalysisTest {
 
     @Test
     public void testLessThan() {
-        double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0, -1.0};
+        double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
         TemperatureSeriesAnalysis test = new TemperatureSeriesAnalysis(temperatureSeries);
-        double[] expResult = {-5.0, -1.0};
+        double[] expResult = {-5.0};
 
         double[] actualResult = test.findTempsLessThen(1);
 
