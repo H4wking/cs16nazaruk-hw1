@@ -1,6 +1,5 @@
 package ua.edu.ucu.tempseries;
 import java.lang.Math;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
@@ -9,11 +8,6 @@ public class TemperatureSeriesAnalysis {
 
     private int tempLen;
     private double[] temperatureSeries;
-
-
-    public TemperatureSeriesAnalysis() {
-
-    }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (int i = 0; i < temperatureSeries.length; i++)

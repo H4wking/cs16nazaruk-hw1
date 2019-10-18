@@ -1,10 +1,15 @@
 package ua.edu.ucu.tempseries;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.junit.Ignore;
+import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysisTest {
+
+    @Test(expected = InputMismatchException.class)
+    public void testWithInvalidTemps() {
+        double[] temperatureSeries = {-1.0, -273.1};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+    }
 
     @Test
     public void testAverageWithOneElementArray() {
@@ -266,10 +271,10 @@ public class TemperatureSeriesAnalysisTest {
         double expMax = -1.0;
 
         TempSummaryStatistics actualResult = test.summaryStatistics();
-        double actualAvg = actualResult.avgTemp;
-        double actualDev = actualResult.devTemp;
-        double actualMin = actualResult.minTemp;
-        double actualMax = actualResult.maxTemp;
+        double actualAvg = actualResult.getAvgTemp();
+        double actualDev = actualResult.getDevTemp();
+        double actualMin = actualResult.getMinTemp();
+        double actualMax = actualResult.getMaxTemp();
 
         assertEquals(expAvg, actualAvg, 0.00001);
         assertEquals(expDev, actualDev, 0.00001);
@@ -295,10 +300,10 @@ public class TemperatureSeriesAnalysisTest {
         double expMax = 5.0;
 
         TempSummaryStatistics actualResult = test.summaryStatistics();
-        double actualAvg = actualResult.avgTemp;
-        double actualDev = actualResult.devTemp;
-        double actualMin = actualResult.minTemp;
-        double actualMax = actualResult.maxTemp;
+        double actualAvg = actualResult.getAvgTemp();
+        double actualDev = actualResult.getDevTemp();
+        double actualMin = actualResult.getMinTemp();
+        double actualMax = actualResult.getMaxTemp();
 
         assertEquals(expAvg, actualAvg, 0.00001);
         assertEquals(expDev, actualDev, 0.00001);
