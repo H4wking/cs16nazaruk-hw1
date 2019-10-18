@@ -1,5 +1,4 @@
 package ua.edu.ucu.tempseries;
-import java.lang.Math;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
@@ -8,11 +7,13 @@ public class TemperatureSeriesAnalysis {
 
     private int tempLen;
     private double[] temperatureSeries;
+    static final double MIN_TEMP = -273.0;
+    static final int MAX_TEMP = 100000;
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (int i = 0; i < temperatureSeries.length; i++)
         {
-            if (temperatureSeries[i] < -273.0)
+            if (temperatureSeries[i] < MIN_TEMP)
             {
                 throw new InputMismatchException();
             }
@@ -51,7 +52,7 @@ public class TemperatureSeriesAnalysis {
         if (this.tempLen == 0) {
             throw new IllegalArgumentException();
         }
-        double min = 100000;
+        double min = MAX_TEMP;
         for (int i = 0; i < this.tempLen; i++) {
             if (this.temperatureSeries[i] < min) {
                 min = this.temperatureSeries[i];
@@ -64,7 +65,7 @@ public class TemperatureSeriesAnalysis {
         if (this.tempLen == 0) {
             throw new IllegalArgumentException();
         }
-        double max = -273;
+        double max = MIN_TEMP;
         for (int i = 0; i < this.tempLen; i++) {
             if (this.temperatureSeries[i] > max) {
                 max = this.temperatureSeries[i];
@@ -77,9 +78,10 @@ public class TemperatureSeriesAnalysis {
         if (this.tempLen == 0) {
             throw new IllegalArgumentException();
         }
-        double closest_to_zero = 100000;
+        double closest_to_zero = MAX_TEMP;
         for (int i = 0; i < this.tempLen; i++) {
-            if (Math.abs(this.temperatureSeries[i]) < Math.abs(closest_to_zero) || this.temperatureSeries[i] == Math.abs(closest_to_zero)) {
+            if (Math.abs(this.temperatureSeries[i]) < Math.abs(closest_to_zero)
+                         || this.temperatureSeries[i] == Math.abs(closest_to_zero)) {
                 closest_to_zero = this.temperatureSeries[i];
             }
         }
@@ -90,9 +92,10 @@ public class TemperatureSeriesAnalysis {
         if (this.tempLen == 0) {
             throw new IllegalArgumentException();
         }
-        double closest_to_value = 100000;
+        double closest_to_value = MAX_TEMP;
         for (int i = 0; i < this.tempLen; i++) {
-            if (Math.abs(this.temperatureSeries[i] - tempValue) < Math.abs(closest_to_value - tempValue) || this.temperatureSeries[i] - tempValue == Math.abs(closest_to_value - tempValue)) {
+            if (Math.abs(this.temperatureSeries[i] - tempValue) < Math.abs(closest_to_value - tempValue)
+                         || this.temperatureSeries[i] - tempValue == Math.abs(closest_to_value - tempValue)) {
                 closest_to_value = this.temperatureSeries[i];
             }
         }
@@ -112,7 +115,9 @@ public class TemperatureSeriesAnalysis {
             if (this.temperatureSeries[i] < tempValue) {
                 temps_less[j] = this.temperatureSeries[i];
                 j++;
-                if (j > arr_len) break;
+                if (j > arr_len) {
+                    break;
+                }
             }
         }
         return temps_less;
@@ -131,7 +136,9 @@ public class TemperatureSeriesAnalysis {
             if (this.temperatureSeries[i] > tempValue) {
                 temps_greater[j] = this.temperatureSeries[i];
                 j++;
-                if (j > arr_len) break;
+                if (j > arr_len) {
+                    break;
+                }
             }
         }
         return temps_greater;
@@ -141,13 +148,15 @@ public class TemperatureSeriesAnalysis {
         if (this.tempLen == 0) {
             throw new IllegalArgumentException();
         }
-        TempSummaryStatistics tss = new TempSummaryStatistics(this.average(), this.deviation(), this.min(), this.max());
+        TempSummaryStatistics tss = new TempSummaryStatistics(this.average(), this.deviation(), this.min(),
+                                                              this.max());
         return tss;
     }
 
     public int addTemps(double... temps) {
         if (temps.length > this.temperatureSeries.length - this.tempLen) {
-            this.temperatureSeries = Arrays.copyOf(this.temperatureSeries, 2 * (this.tempLen + temps.length));
+            this.temperatureSeries = Arrays.copyOf(this.temperatureSeries, 2 * (this.tempLen
+                                                                                           + temps.length));
         }
         for (int i = 0; i < temps.length; i++) {
             this.temperatureSeries[this.tempLen + i] = temps[i];
